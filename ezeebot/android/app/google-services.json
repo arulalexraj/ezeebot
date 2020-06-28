@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "647518279435",
+    "firebase_url": "https://ezeebot-40584.firebaseio.com",
+    "project_id": "ezeebot-40584",
+    "storage_bucket": "ezeebot-40584.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:647518279435:android:2153ea53fb46afaf7e340e",
+        "android_client_info": {
+          "package_name": "com.ezeebot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "647518279435-1s0v219rk1mcrbp991u65t4nasnjn8nv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ezeebot",
+            "certificate_hash": "fdb65930afd8666de9935dff724d56075bae779e"
+          }
+        },
+        {
+          "client_id": "647518279435-25j27h7edmqaku3ia5u3ag44kdmclbeb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAX9aIqQJgwAx5fZ7BJbP3qO_2zmnA1hw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "647518279435-25j27h7edmqaku3ia5u3ag44kdmclbeb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

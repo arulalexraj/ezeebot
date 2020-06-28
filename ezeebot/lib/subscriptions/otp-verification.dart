@@ -1,8 +1,14 @@
+import 'package:device_info/device_info.dart';
 import 'package:ezeebot/layout/app_drawer.dart';
 import 'package:ezeebot/layout/appbar.dart';
+import 'package:ezeebot/services/auth-api.dart';
+import 'package:ezeebot/services/subscription-api.dart';
+import 'package:ezeebot/shared/auth.dart';
+import 'package:ezeebot/shared/messageBox.dart';
 import 'package:ezeebot/shared/navigator.dart';
 import 'package:ezeebot/subscriptions/subscriptions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_udid/flutter_udid.dart';
 
 class OTPVerificationForm extends StatefulWidget {
   @override
@@ -14,12 +20,16 @@ class OTPVerificationForm extends StatefulWidget {
 class _OTPVerificationFormState extends State<OTPVerificationForm> {
   double _minPadding = 5.0;
 
-  TextEditingController firstController = TextEditingController(text: '2');
-  TextEditingController secondController = TextEditingController(text: '6');
-  TextEditingController thirdController = TextEditingController(text: '4');
-  TextEditingController fourthController = TextEditingController(text: '8');
-  TextEditingController fifthController = TextEditingController(text: '3');
-  TextEditingController sixthController = TextEditingController(text: '0');
+  TextEditingController firstController = TextEditingController();
+  TextEditingController secondController = TextEditingController();
+  TextEditingController thirdController = TextEditingController();
+  TextEditingController fourthController = TextEditingController();
+  TextEditingController fifthController = TextEditingController();
+  TextEditingController sixthController = TextEditingController();
+
+  AuthService _authService;
+  UserAuth _userAuth;
+  SubscriptionService _subscriptionService;
 
   var outlineInputBorder = OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -30,6 +40,14 @@ class _OTPVerificationFormState extends State<OTPVerificationForm> {
     borderRadius: BorderRadius.all(Radius.circular(5.0)),
     borderSide: BorderSide(width: 1, color: Color.fromRGBO(211, 138, 139, 5.0)),
   );
+
+  @override
+  void initState() {
+    super.initState();
+    _authService = AuthService();
+    _userAuth = UserAuth();
+    _subscriptionService = SubscriptionService();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +81,8 @@ class _OTPVerificationFormState extends State<OTPVerificationForm> {
                               keyboardType: TextInputType.number,
                               textAlign: TextAlign.center,
                               controller: firstController,
+                              maxLength: 1,
+                              textInputAction: TextInputAction.next,
                               decoration: InputDecoration(
                                 focusedBorder: outlineInputBorder,
                                 enabledBorder: outlineInputBorder,
@@ -70,6 +90,7 @@ class _OTPVerificationFormState extends State<OTPVerificationForm> {
                                 contentPadding: EdgeInsets.zero,
                                 filled: true,
                                 fillColor: Color.fromRGBO(222, 241, 248, 5.0),
+                                counterText: '',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0),
                                 ),
@@ -83,6 +104,8 @@ class _OTPVerificationFormState extends State<OTPVerificationForm> {
                               keyboardType: TextInputType.number,
                               textAlign: TextAlign.center,
                               controller: secondController,
+                              maxLength: 1,
+                              textInputAction: TextInputAction.next,
                               decoration: InputDecoration(
                                 focusedBorder: outlineInputBorder,
                                 enabledBorder: outlineInputBorder,
@@ -90,6 +113,7 @@ class _OTPVerificationFormState extends State<OTPVerificationForm> {
                                 contentPadding: EdgeInsets.zero,
                                 filled: true,
                                 fillColor: Color.fromRGBO(222, 241, 248, 5.0),
+                                counterText: '',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0),
                                 ),
@@ -103,6 +127,8 @@ class _OTPVerificationFormState extends State<OTPVerificationForm> {
                               keyboardType: TextInputType.number,
                               textAlign: TextAlign.center,
                               controller: thirdController,
+                              maxLength: 1,
+                              textInputAction: TextInputAction.next,
                               decoration: InputDecoration(
                                 focusedBorder: outlineInputBorder,
                                 enabledBorder: outlineInputBorder,
@@ -110,6 +136,7 @@ class _OTPVerificationFormState extends State<OTPVerificationForm> {
                                 contentPadding: EdgeInsets.zero,
                                 filled: true,
                                 fillColor: Color.fromRGBO(222, 241, 248, 5.0),
+                                counterText: '',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0),
                                 ),
@@ -123,6 +150,8 @@ class _OTPVerificationFormState extends State<OTPVerificationForm> {
                               keyboardType: TextInputType.number,
                               textAlign: TextAlign.center,
                               controller: fourthController,
+                              maxLength: 1,
+                              textInputAction: TextInputAction.next,
                               decoration: InputDecoration(
                                 focusedBorder: outlineInputBorder,
                                 enabledBorder: outlineInputBorder,
@@ -130,6 +159,7 @@ class _OTPVerificationFormState extends State<OTPVerificationForm> {
                                 contentPadding: EdgeInsets.zero,
                                 filled: true,
                                 fillColor: Color.fromRGBO(222, 241, 248, 5.0),
+                                counterText: '',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0),
                                 ),
@@ -143,6 +173,8 @@ class _OTPVerificationFormState extends State<OTPVerificationForm> {
                               keyboardType: TextInputType.number,
                               textAlign: TextAlign.center,
                               controller: fifthController,
+                              maxLength: 1,
+                              textInputAction: TextInputAction.next,
                               decoration: InputDecoration(
                                 focusedBorder: outlineInputBorder,
                                 enabledBorder: outlineInputBorder,
@@ -150,6 +182,7 @@ class _OTPVerificationFormState extends State<OTPVerificationForm> {
                                 contentPadding: EdgeInsets.zero,
                                 filled: true,
                                 fillColor: Color.fromRGBO(222, 241, 248, 5.0),
+                                counterText: '',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0),
                                 ),
@@ -163,6 +196,8 @@ class _OTPVerificationFormState extends State<OTPVerificationForm> {
                               keyboardType: TextInputType.number,
                               textAlign: TextAlign.center,
                               controller: sixthController,
+                              maxLength: 1,
+                              textInputAction: TextInputAction.next,
                               decoration: InputDecoration(
                                 focusedBorder: outlineInputBorder,
                                 enabledBorder: outlineInputBorder,
@@ -170,6 +205,7 @@ class _OTPVerificationFormState extends State<OTPVerificationForm> {
                                 contentPadding: EdgeInsets.zero,
                                 filled: true,
                                 fillColor: Color.fromRGBO(222, 241, 248, 5.0),
+                                counterText: '',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0),
                                 ),
@@ -196,16 +232,44 @@ class _OTPVerificationFormState extends State<OTPVerificationForm> {
               padding: EdgeInsets.only(top: _minPadding * 8),
               alignment: Alignment.center,
               child: RaisedButton(
-                color: Colors.indigo,
-                elevation: 2.0,
-                child: Padding(
-                    padding: EdgeInsets.only(top: _minPadding * 2, bottom: _minPadding * 2, left: _minPadding * 15, right: _minPadding * 15),
-                    child: Text("Verify", style: TextStyle(fontFamily: 'Roboto', fontSize: 18, color: Colors.white))),
-                shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(10.0),
-                ),
-                onPressed: () => CustomNavigator.push(context, SubscriptionForm()),
-              ),
+                  color: Colors.indigo,
+                  elevation: 2.0,
+                  child: Padding(
+                      padding: EdgeInsets.only(top: _minPadding * 2, bottom: _minPadding * 2, left: _minPadding * 15, right: _minPadding * 15),
+                      child: Text("Verify", style: TextStyle(fontFamily: 'Roboto', fontSize: 18, color: Colors.white))),
+                  shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(10.0),
+                  ),
+                  onPressed: () async {
+                    String Otp = firstController.text.trim() +
+                        secondController.text.trim() +
+                        thirdController.text.trim() +
+                        fourthController.text.trim() +
+                        fifthController.text.trim() +
+                        sixthController.text.trim();
+                    var response = await _authService.validateOtp(Otp);
+                    if (response != null) {
+                      DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+                      String udid = await FlutterUdid.udid;
+                      var device = await deviceInfoPlugin.androidInfo;
+                      String fcmAuthToken = await _userAuth.getFcmAuthToken();
+                      String userCode = await _userAuth.getUserCode();
+                      var map = Map<String, dynamic>();
+                      map['udid'] = udid;
+                      map['gcmToken'] = fcmAuthToken;
+                      map['os'] = device.version.codename;
+                      map['model'] = device.model;
+                      map['brand'] = device.board;
+                      map['code'] = userCode;
+                      var deviceMedium = Map<String, dynamic>();
+                      deviceMedium['code'] = "EZBOT";
+                      map['deviceMedium'] = deviceMedium;
+                      await _subscriptionService.getSubscriptionList(userCode, map);
+                      CustomNavigator.push(context, SubscriptionForm());
+                    } else {
+                      MessageBox.warningMessage(context, "Sorry!! Unable to subscribe....");
+                    }
+                  }),
             ),
             Container(
               padding: EdgeInsets.only(top: _minPadding * 3),

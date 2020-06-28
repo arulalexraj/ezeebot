@@ -1,3 +1,4 @@
+import 'package:ezeebot/shared/auth.dart';
 import 'package:ezeebot/shared/navigator.dart';
 import 'package:ezeebot/subscriptions/subscriptions.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,6 +13,13 @@ class HomePageForm extends StatefulWidget {
 
 class _HomePageFormState extends State<HomePageForm> {
   double _minPadding = 5.0;
+  UserAuth _userAuth;
+
+  @override
+  void initState() {
+    super.initState();
+    _userAuth = UserAuth();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +67,9 @@ class _HomePageFormState extends State<HomePageForm> {
             shape: new RoundedRectangleBorder(
               borderRadius: new BorderRadius.circular(10.0),
             ),
-            onPressed: () => CustomNavigator.push(context, SubscriptionForm()),
+            onPressed: () async {
+              CustomNavigator.push(context, SubscriptionForm());
+            },
           ),
         ),
         Container(
